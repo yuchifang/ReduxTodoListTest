@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Input, Box, Button, Flex, List, ListItem } from "@chakra-ui/react"
+import { Input, Box, Button, Flex, List, ListItem, CloseButton } from "@chakra-ui/react"
 import store from "./store/index"
-import { INPUT_CHANGE, ADD_LIST } from "../src/store/actionType"
+import { INPUT_CHANGE, ADD_LIST, DELETE_LIST } from "../src/store/actionType"
 const App = () => {
   const [inputValue, setInputValue] = useState<string>(store.getState().inputValue)
   const [listArr, setListArr] = useState<string[]>(store.getState().list)
@@ -26,7 +26,7 @@ const App = () => {
     store.dispatch(action)
   }
 
-  const handleButton = () => {
+  const handleAddList = () => {
     if (inputValue !== "") {
       const newList = [...listArr, inputValue]
       const action = {
@@ -38,6 +38,13 @@ const App = () => {
       alert("請輸入字串")
     }
   }
+  const handleDelete = (id: number) => {
+    const action = {
+      type: DELETE_LIST,
+      value: id
+    }
+    store.dispatch(action)
+  }
 
   return (
     <>
@@ -47,11 +54,20 @@ const App = () => {
           </Input>
         </Box >
         <Box m="20px">
-          <Button colorScheme="teal" onClick={handleButton}>Button</Button>
+          <Button colorScheme="teal" onClick={handleAddList}>Button</Button>
         </Box >
       </Flex >
       {listArr.length > 0 && <List >
-        {listArr.map(listString => (<ListItem ml="20px" >{listString}</ListItem>))}
+        {listArr.map((listString, index) => (<ListItem w="50%" bg="tomato" m="10px" >
+          <Flex justify="space-between" align="center">
+            <Box bg="white" p="5px" m="10px">
+              {listString}
+            </Box>
+            <Box bg="white" m="10px">
+              <CloseButton onClick={() => handleDelete(index)} size="md" />
+            </Box>
+          </Flex>
+        </ListItem>))}
       </List >}
     </>
   );
