@@ -1,5 +1,5 @@
 import { Store } from "../InterFace"
-import { INPUT_CHANGE, ADD_LIST, DELETE_LIST } from "./actionType"
+import { INPUT_CHANGE, ADD_LIST, DELETE_LIST, GET_INIT_LIST } from "./actionType"
 const defaultState: Store = {
     inputValue: "",
     list: []
@@ -21,7 +21,9 @@ export default (state = defaultState, action: any) => {
             const newlist = newState.list.filter((listStr: string, index: number) => action.value !== index)
             newState.list = newlist
             return newState
-
+        case GET_INIT_LIST:
+            newState.list = action.value
+            return newState
     }
     return state
 }

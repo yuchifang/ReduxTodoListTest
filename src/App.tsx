@@ -2,20 +2,25 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Input, Box, Button, Flex, List, ListItem, CloseButton } from "@chakra-ui/react"
 import store from "./store/index"
-import { inputChangeAction, inputAddListAction, deleteListAction } from "./store/actionCreator"
+import { getInitListAction, getDataAction, inputChangeAction, inputAddListAction, deleteListAction } from "./store/actionCreator"
 import axios from "axios"
-
 
 const App = () => {
   const [inputValue, setInputValue] = useState<string>(store.getState().inputValue)
   const [listArr, setListArr] = useState<string[]>(store.getState().list)
 
   useEffect(() => {
-    axios.get("http://localhost:8000/list").then((res: any) => {
-      setListArr(res.data)
-    }).catch((err: any) => {
-      console.log(err)
+    // const action: any = getDataAction()
+    store.dispatch((dispatch: any) => {
+      axios.get("http://localhost:8080/list")
+        .then((res: any) => {
+          const action = getInitListAction(res.data)
+          dispatch(action)
+        }).catch((err: any) => {
+          console.log(err)
+        })
     })
+
   }, [])
 
   useEffect(() => {
@@ -59,7 +64,7 @@ const App = () => {
           <Button colorScheme="teal" onClick={handleAddList}>Button</Button>
         </Box >
       </Flex >
-      {listArr.length > 0 &&
+      {listArr?.length > 0 &&
         <List >
           {listArr.map((listString, index) => (<ListItem w="50%" bg="tomato" m="10px" >
             <Flex justify="space-between" align="center">
