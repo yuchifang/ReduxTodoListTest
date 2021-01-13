@@ -10,16 +10,8 @@ const App = () => {
   const [listArr, setListArr] = useState<string[]>(store.getState().list)
 
   useEffect(() => {
-    // const action: any = getDataAction()
-    store.dispatch((dispatch: any) => {
-      axios.get("http://localhost:8080/list")
-        .then((res: any) => {
-          const action = getInitListAction(res.data)
-          dispatch(action)
-        }).catch((err: any) => {
-          console.log(err)
-        })
-    })
+    const action: any = getDataAction()
+    store.dispatch(action)
 
   }, [])
 
