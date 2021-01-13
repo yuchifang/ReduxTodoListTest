@@ -18,7 +18,6 @@ export default (state = defaultState, action: any) => {
             newState.inputValue = ""
             return newState
         case DELETE_LIST:
-            console.log("newState", newState)
             const newlist = newState.list.filter((listStr: string, index: number) => action.value !== index)
             newState.list = newlist
             return newState
