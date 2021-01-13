@@ -8,10 +8,7 @@ const TodoList = () => {
 
     const inputValueStore = useSelector((state: Store) => state.inputValue)
     const listStore = useSelector((state: Store) => state.list)
-    console.log("inputValueStore", inputValueStore)
-    console.log("listStore", listStore);
-    const [inputValue, setInputValue] = useState<string>(store.getState().inputValue)
-    const [listArr, setListArr] = useState<string[]>(store.getState().list)
+
     const dispatch = useDispatch();
 
 
@@ -20,17 +17,6 @@ const TodoList = () => {
         dispatch(action)
 
     }, [])
-
-    useEffect(() => {
-        console.log("wwwwwwwwwwwwww");
-        const storeChange = () => {
-            // setListArr(store.getState().list)
-            // setInputValue(store.getState().inputValue)
-        }
-        store.subscribe(storeChange)
-        //subscribe功用 如果 redux 變化了調用方法 
-    }, [store])
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const action = inputChangeAction(e.target.value)
