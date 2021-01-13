@@ -24,7 +24,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-
+    console.log("222222222222222222");
     const storeChange = () => {
       setListArr(store.getState().list)
       setInputValue(store.getState().inputValue)
@@ -52,7 +52,7 @@ const App = () => {
     const action = deleteListAction(id)
     store.dispatch(action)
   }
-
+  console.log("3333333333333333333");
   return (
     <>
       <Flex align="center">
