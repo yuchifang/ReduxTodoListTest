@@ -11,15 +11,15 @@ const App = () => {
   const [listArr, setListArr] = useState<string[]>(store.getState().list)
 
   useEffect(() => {
-    axios.get("http://localhost:8000/list").then((res: any) => {
-      setListArr(res.data)
-    }).catch((err: any) => {
-      console.log(err)
-    })
+    console.log("111111111111111");
+    const action = {
+      type: "getData"
+    }
+    store.dispatch(action)
   }, [])
 
   useEffect(() => {
-
+    console.log("222222222222222222");
     const storeChange = () => {
       setListArr(store.getState().list)
       setInputValue(store.getState().inputValue)
@@ -47,7 +47,7 @@ const App = () => {
     const action = deleteListAction(id)
     store.dispatch(action)
   }
-
+  console.log("3333333333333333333");
   return (
     <>
       <Flex align="center">
