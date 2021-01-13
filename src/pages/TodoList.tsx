@@ -14,7 +14,7 @@ const TodoList = () => {
         dispatch(action)
     }, [])
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const action = inputChangeAction(e.target.value)
         dispatch(action)
     }
@@ -38,7 +38,7 @@ const TodoList = () => {
         <>
             <Flex align="center">
                 <Box m="20px">
-                    <Input placeholder="輸入資料" size="md" onChange={handleChange} value={inputValueStore} >
+                    <Input placeholder="輸入資料" size="md" onChange={handleInputChange} value={inputValueStore} >
                     </Input>
                 </Box >
                 <Box m="20px">
